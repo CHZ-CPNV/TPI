@@ -142,7 +142,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "Horaires",
+											"text": "Courses",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -224,7 +224,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "Co-Voiturage",
+											"text": "Horaires",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -553,7 +553,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFjRBYOZv+im4o="
 							},
-							"name": "Horaires",
+							"name": "Courses",
 							"ownedElements": [
 								{
 									"_type": "ERDRelationship",
@@ -653,7 +653,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFjRBYOZv+im4o="
 							},
-							"name": "Co-Voiturage"
+							"name": "Horaires"
 						}
 					]
 				}
