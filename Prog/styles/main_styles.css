@@ -51,7 +51,10 @@
 /*********************************
 2. Body and some general stuff
 *********************************/
-
+.errorBox{
+	min-height: 250px;
+	margin-top: 100px;
+}
 *
 {
 	margin: 0;
@@ -421,7 +424,7 @@ section
 }
 .main_nav_col
 {
-	height: 143px;
+	height: 80px;
 	-webkit-transition: all 400ms ease;
 	-moz-transition: all 400ms ease;
 	-ms-transition: all 400ms ease;
@@ -436,6 +439,10 @@ section
 /*********************************
 3.2 Logo
 *********************************/
+#homeLogo{
+	max-width: 60px;
+	margin: auto !important;
+}
 
 .logo_container
 {
@@ -477,10 +484,6 @@ section
 3.3 Main Nav
 *********************************/
 
-.main_nav_container
-{
-	margin-right: 221px;
-}
 .main_nav_item
 {
 	position: relative;
@@ -806,6 +809,7 @@ section
 }
 .home_slider_content h1:first-child
 {
+	padding-bottom: 15px;
 	font-size: 112px;
 	font-weight: 900;
 	color: #FFFFFF;
@@ -1749,7 +1753,9 @@ section
 /*********************************
 12. Contact
 *********************************/
-
+#pigeonSize{
+	max-height: 30px;
+}
 .contact
 {
 	width: 100%;
@@ -1768,6 +1774,7 @@ section
 }
 .contact_title
 {
+	margin-top: 25px;
 	font-size: 30px;
 	font-weight: 700;
 	color: #FFFFFF;
@@ -1801,10 +1808,18 @@ section
 {
 	width: calc((100% - 30px) / 2);
 	margin-right: 30px;
+	margin-bottom: 20px;
+}
+.contact_form_prenom
+{
+	width: calc((100% - 30px) / 2);
+	margin-bottom: 20px;
 }
 .contact_form_email
 {
 	width: calc((100% - 30px) / 2);
+	width: 100%;
+	margin-bottom: 20px;
 }
 .contact_form_subject
 {
@@ -1824,6 +1839,10 @@ section
 	color: #FFFFFF;
 	border-bottom: solid 2px #e1e1e1;
 	padding-top: 11px;
+}
+.login_button{
+	display: block !important;
+	margin: auto;
 }
 .form_submit_button
 {

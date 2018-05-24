@@ -4,7 +4,7 @@
 //Date de création: 18.05.2018
 //Auteur: CHZ
 //____________________________
-
+session_start();
 require 'controleur/controleur.php';
 
 try
@@ -19,8 +19,14 @@ try
 			case 'homepage':
 				vueHomepage();
 				break;
+			case 'login':
+				vueLogin();
+				break;
 			case 'horaire':
 				vueHoraire();
+				break;
+			case 'inscription':
+				vueInscription();
 				break;
 			default:
 				throw new Exception("Page non valide");

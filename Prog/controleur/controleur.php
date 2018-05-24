@@ -3,28 +3,33 @@
 //Date de création: 18.05.2018
 //Auteur: CHZ
 //____________________________
-
 require 'modele/modele.php';
 
-// function vueConnexion(){
-// 	if(isset($_POST['flogin'])){
-// 		$resultats = getLogin($_POST);
-// 	}
-// 	require 'view/Connexion.php';
-// }
-
 function vueHomepage(){
-	require 'view/gabarit.php';
+	require 'view/homepage.php';
 }
 
-function sendRegistering($post)
-{
-  // Connexion à la BD
-  $connexion = getBD();
-  // Hashage du mot de passe
-  $password = $post['fpassword'];
-  $password = md5($password);
-  // Définition de la requete
-  $requete="INSERT INTO users VALUES (DEFAULT, '".$post['fusername']."', '".$password."', '".$post['fmail']."', DEFAULT, DEFAULT)";
-  $resultats = $connexion->exec($requete);
+function vueLogin(){
+		if(isset($_POST['LogUser'])){
+			$resultats = getLogin($_POST['LogUser'],$_POST['LogPassword']);
+		}
+		require 'view/login.php';
+}
+
+// Inscription sur le site
+function vueInscription(){
+  if (isset($_POST['fEmail']) AND $_POST['fPassword'] == $_POST['fConfirmedpassword'])
+	{
+		   $resultats = inscriptionDone($_POST);
+			 //if($ligne['NbPlace'] < "7") {
+  }
+	require 'view/inscription.php';
+}
+
+function vueHoraire(){
+	require 'view/horaire.php';
+}
+// Affichage des erreurs
+function erreur($msgErreur){
+  require 'view/erreur.php';
 }
