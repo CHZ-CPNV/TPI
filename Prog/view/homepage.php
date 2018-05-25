@@ -15,8 +15,8 @@ ob_start();
           <div class="home_slider_content_inner" data-animation-in="flipInX" data-animation-out="animate-out fadeOut">
             <h1>Ride</h1>
             <h1>W/Me</h1>
-            <div class="button home_slider_button"><div class="button_bcg"></div><a href="index.php?action=horaire">Trouver un covoiturage</a></div>
-            <div class="button home_slider_button"><div class="button_bcg"></div><a href="index.php?action=horaire">Proposer un covoiturage</a></div>
+            <div class="button home_slider_button"><div class="button_bcg"></div><a data-id="pilote" href="index.php?action=horaire">Trouver un covoiturage</a></div>
+            <div class="button home_slider_button"><div class="button_bcg"></div><a data-id="passager" href="index.php?action=horaire">Proposer un covoiturage</a></div>
           </div>
         </div>
       </div>

@@ -1753,6 +1753,19 @@ section
 /*********************************
 12. Contact
 *********************************/
+.table_horaire{
+	width: 100%;
+}
+.table_horaire td{
+	height: 48px;
+	font-size: 12px;
+	font-weight: 400;
+	border: none;
+	outline: none;
+	background: transparent;
+	color: #FFFFFF;
+	border-bottom: solid 2px #e1e1e1;
+}
 #pigeonSize{
 	max-height: 30px;
 }
