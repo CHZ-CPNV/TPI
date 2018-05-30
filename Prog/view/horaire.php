@@ -13,10 +13,12 @@ ob_start();
 				<div class="contact_form_container">
 					<div class="contact_title text-center">Voici les horaires disponible pour les courses</div>
 					<form action="index.php?action=horaire" id="contact_form" class="contact_form text-center" method="post">
-						<?php
-							//echo $csv[0][3];
-						?>
             <table class="table_horaire">
+							<?php for($i = 0; $i < 10; $i++) {?>
+								<tr>
+									<td><?php echo $sameuser;?></td>
+								</tr>
+							<?php }?>
               <tr>
                 <td>Heures</td>
                 <td colspan=3>Lundi</td>

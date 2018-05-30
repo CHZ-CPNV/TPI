@@ -17,7 +17,7 @@ function inscriptionDone($post){
   $connexion = getBd();
 	$password = $post['fPassword'];
 	$password = md5($password);
-  $requete = "INSERT INTO profs (Username, Nom, Prenom, Email, Password, NbPlace) VALUES('".$post['fUsername']."', '".$post['fNom']."', '".$post['fPrenom']."', '".$post['fEmail']."', '".$password."', '".$post['fNbPlace']."')";
+  $requete = "INSERT INTO profs (Acronyme, Nom, Prenom, Email, Password, NbPlace) VALUES('".$post['fAcronyme']."', '".$post['fNom']."', '".$post['fPrenom']."', '".$post['fEmail']."', '".$password."', '".$post['fNbPlace']."')";
   $connexion->exec($requete);
 
 	// Requête pour séelctionner la personne loguée

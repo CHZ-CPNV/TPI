@@ -16,6 +16,7 @@ ob_start();
       				$ligne=$resultats->fetch();
 							if(isset($ligne['Nom'])) {
               	$_SESSION['User'] = $ligne['Nom']." ".$ligne['Prenom'];
+								$_SESSION['CurrentUser'] = $ligne['Nom'];
               	echo '<br/><div class="alert alert-info">Bonjour '.$_SESSION['User'].'. Vous vous êtes bien inscris sur notre site.<a href="index.php?action=homepage">Retour sur la homepage</a></div>';
 							}
   					} else {
@@ -27,7 +28,7 @@ ob_start();
 						<input type="mail" class="contact_form_email input_field" placeholder="Email" required="required" name="fEmail" data-error="Email est plus que requis.">
 						<input type="password" class="contact_form_name input_field" placeholder="Mot de passe" required="required" name="fPassword" data-error="Un mot de passe est requis.">
 						<input type="password" class="contact_form_prenom input_field" placeholder="Confirmer mot de passe" required="required" name="fConfirmedpassword" data-error="Veuillez confirmer votre mot de passe.">
-						<input type="text" class="contact_form_name input_field" placeholder="Username (Acronyme de préference)" required="required" name="fUsername" data-error="Comme pour les autre champs, lui aussi est obligatoire.">
+						<input type="text" class="contact_form_name input_field" placeholder="Username (Acronyme de préference)" required="required" name="fAcronyme" data-error="Comme pour les autre champs, lui aussi est obligatoire.">
 						<input type="number" class="contact_form_prenom input_field" placeholder="Nombre de sièges (4, 5, 7)" required="required" name="fNbPlace" data-error="Prénom est requis.">
 						<button type="submit" id="form_submit_button" class="form_submit_button button trans_200">Envoyer la requête <img id="pigeonSize" src="images/pigeonInscription.png" alt=""></button>
 					</form>

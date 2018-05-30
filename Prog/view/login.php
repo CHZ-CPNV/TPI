@@ -16,6 +16,7 @@ ob_start();
       				$ligne=$resultats->fetch();
               if(isset($ligne['Email'])){
                 $_SESSION['User'] = $ligne['Nom']." ".$ligne['Prenom'];
+								$_SESSION['CurrentUser'] = $ligne['Nom'];
                 echo '<br/><div class="alert alert-info">Bonjour '.$_SESSION['User'].'. Vous êtes bien connecté.<a href="index.php?action=homepage">Retour sur la homepage</a></div>';
               } else {
                 echo '<br/><div class="alert alert-danger">Les informations indiquées semble erronées.</div>';
