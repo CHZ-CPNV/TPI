@@ -26,6 +26,18 @@ function vueInscription() {
 }
 
 function vueHoraire() {
+	$CurrentUserHD = 0;
+	$UserFound;
+	$TodayDate = date("N");
+	$JourSemaine = array(
+		"1" => "lundi",
+		"2" => "mardi",
+		"3" => "mercredi",
+		"4" => "jeudi",
+		"5" => "vendredi",
+		"6" => "samedi",
+		"7" => "dimanche",
+	);
 	ini_set('auto_detect_line_endings', TRUE);
 	if (($file = fopen("C:\Users\Camille.HEINTZ\Documents\TPI\Prog\data\data.csv", "r")) !== FALSE) {
 		fgetcsv($file);
@@ -35,8 +47,9 @@ function vueHoraire() {
 
 			//Check les horaires par rapport au jour de l'utilisateur connecté
 			if($csv[3] == $_SESSION['CurrentUser'] && $csv[5] == "lundi") {
-				$CurrentUserH = $csv[6];
-				//var_dump($CurrentUserH);
+				if($CurrentUserHD == 0){
+
+				}
 			}
 			if($csv[3] == $_SESSION['CurrentUser'] && $csv[5] == "mardi") {
 				if(empty($CurrentUserHD)){
@@ -49,21 +62,27 @@ function vueHoraire() {
 			}
 			if($csv[3] == $_SESSION['CurrentUser'] && $csv[5] == "mercredi") {
 				$CurrentUserH = $csv[6];
-				//var_dump($CurrentUserH);
 			}
-			if($csv[3] == $_SESSION['CurrentUser'] && $csv[5] == "jeudi") {
+			if($csv[3] == $_SESSION['CurrentUser'] && $csv[5] == $JourSemaine[$TodayDate]) {
 				$CurrentUserH = $csv[6];
-				//var_dump($CurrentUserH);
 			}
 			if($csv[3] == $_SESSION['CurrentUser'] && $csv[5] == "vendredi") {
 				$CurrentUserH = $csv[6];
-				//var_dump($CurrentUserH);
 			}
 
 			if($csv[6] == $CurrentUserHD && $csv[5] == "mardi" && $csv[3] != $_SESSION['CurrentUser']) {
 				if($UserFound == $csv[3]){} else {
-					$UserFound = $csv[3];
-					echo "All teacher with same hours " . $UserFound . "</br>";
+					$UserFound = $csv[3]; // Les noms des utilisateurs potentiel pour un covoiturage
+					$UserHoraire = $csv[6]; // Les horaires des utilisateurs potentiel pour un covoiturage
+					$UserHoraireFin = $csv[1] + $csv[6]; // Les horaires de fin de journée des utilisateurs potentiel pour un covoiturage
+					$ArrayUser = array(
+						"User" => $UserFound,
+						"UserH" => $UserHoraire,
+						"UserHF" => $UserHoraireFin,
+					);
+					var_dump($ArrayUser);
+
+					//echo "All teacher with same hours " . $UserFound ." ". $UserHoraire ." ". $UserHoraireFin ."</br>";
 				}
 			}
 		}
