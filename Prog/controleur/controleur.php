@@ -26,7 +26,16 @@ function vueInscription() {
 }
 
 function vueHoraire() {
+	// Current user est l'utilisateur connecté
 	$CurrentUserHD = 0;
+	$CurrentUserHF = 0;
+	$CurrentUserHeureDepart = 0;
+
+	// Other user est le reste des enseignants de la BD
+	$OtherUserHD = 0;
+	$OtherUserHF = 0;
+	$OtherUserHeureDepart = 0;
+
 	$UserFound;
 	$TodayDate = date("N");
 	$JourSemaine = array(
@@ -46,43 +55,66 @@ function vueHoraire() {
 			//var_dump($csv);
 
 			//Check les horaires par rapport au jour de l'utilisateur connecté
-			if($csv[3] == $_SESSION['CurrentUser'] && $csv[5] == "lundi") {
+			if($csv[3] == $_SESSION['CurrentUser'] && $csv[5] == $JourSemaine[$TodayDate]) {
 				if($CurrentUserHD == 0){
-
-				}
-			}
-			if($csv[3] == $_SESSION['CurrentUser'] && $csv[5] == "mardi") {
-				if(empty($CurrentUserHD)){
 					$CurrentUserHD = $csv[6];
 				} else {
 					$CurrentUserHF = $csv[6];
+					$Duree = $csv[1];
+					$CurrentUserHeureDepart = $CurrentUserHF + $Duree;
 				}
-				var_dump($CurrentUserHF);
-				var_dump($CurrentUserHD);
-			}
-			if($csv[3] == $_SESSION['CurrentUser'] && $csv[5] == "mercredi") {
-				$CurrentUserH = $csv[6];
-			}
-			if($csv[3] == $_SESSION['CurrentUser'] && $csv[5] == $JourSemaine[$TodayDate]) {
-				$CurrentUserH = $csv[6];
-			}
-			if($csv[3] == $_SESSION['CurrentUser'] && $csv[5] == "vendredi") {
-				$CurrentUserH = $csv[6];
+				//echo $_SESSION['CurrentUser'];
+				//var_dump($CurrentUserHD. "HD");
+				//var_dump($CurrentUserHF. "HF");
+				//var_dump($CurrentUserHeureDepart."h00</br>");
 			}
 
-			if($csv[6] == $CurrentUserHD && $csv[5] == "mardi" && $csv[3] != $_SESSION['CurrentUser']) {
-				if($UserFound == $csv[3]){} else {
-					$UserFound = $csv[3]; // Les noms des utilisateurs potentiel pour un covoiturage
-					$UserHoraire = $csv[6]; // Les horaires des utilisateurs potentiel pour un covoiturage
-					$UserHoraireFin = $csv[1] + $csv[6]; // Les horaires de fin de journée des utilisateurs potentiel pour un covoiturage
+			//Check les horaires des autre enseignants
+			if($csv[5] == $JourSemaine[$TodayDate]){
+				$UserFound = $csv[3];
+				if($OtherUserHD == 0){
+					$OtherUserHD = $csv[6];
+				} else {
+					$OtherUserHF = $csv[6];
+					$Duree = $csv[1];
+					$OtherUserHeureDepart = $OtherUserHF + $Duree;
+				}
+				var_dump($UserFound);
+				//var_dump($OtherUserHD. " HD");
+				//var_dump($OtherUserHF. " HF");
+				//var_dump($OtherUserHeureDepart."h00");
+				echo "</br>";
+			}
+			// if($csv[3] == $_SESSION['CurrentUser'] && $csv[5] == "mardi") {
+			// 	if(empty($CurrentUserHD)){ // essayer "if($CurrentUserHD == 0){} conseil de armand"
+			// 		$CurrentUserHD = $csv[6];
+			// 	} else {
+			// 		$CurrentUserHF = $csv[6];
+			// 	}
+			// 	//var_dump($CurrentUserHF);
+			// 	//var_dump($CurrentUserHD);
+			// }
+			// if($csv[3] == $_SESSION['CurrentUser'] && $csv[5] == "mercredi") {
+			// 	$CurrentUserH = $csv[6];
+			// }
+			// if($csv[3] == $_SESSION['CurrentUser'] && $csv[5] == $JourSemaine[$TodayDate]) {
+			// 	$CurrentUserH = $csv[6];
+			// }
+			// if($csv[3] == $_SESSION['CurrentUser'] && $csv[5] == "vendredi") {
+			// 	$CurrentUserH = $csv[6];
+			// }
+
+			if($csv[6] == $CurrentUserHD && $csv[5] == $JourSemaine[$TodayDate] && $csv[3] != $_SESSION['CurrentUser']) {
+				if($UserFound == $csv[3]){
+					//$UserFound = $csv[3];
+					//$UserHoraire = $csv[6];
+					//$UserHoraireFin = $csv[1] + $csv[6];
 					$ArrayUser = array(
-						"User" => $UserFound,
-						"UserH" => $UserHoraire,
-						"UserHF" => $UserHoraireFin,
+						"User" => $UserFound, // Les noms des utilisateurs potentiel pour un covoiturage
+						"UserHD" => $OtherUserHD, // Les horaires des utilisateurs potentiel pour un covoiturage
+						"UserHF" => $OtherUserHeureDepart, // Les horaires de fin de journée des utilisateurs potentiel pour un covoiturage
 					);
 					var_dump($ArrayUser);
-
-					//echo "All teacher with same hours " . $UserFound ." ". $UserHoraire ." ". $UserHoraireFin ."</br>";
 				}
 			}
 		}

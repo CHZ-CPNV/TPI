@@ -25,49 +25,6 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Structure de la table `courses`
---
-
-DROP TABLE IF EXISTS `courses`;
-CREATE TABLE IF NOT EXISTS `courses` (
-  `IDCourse` int(11) NOT NULL AUTO_INCREMENT,
-  `StartPoint` varchar(30) COLLATE utf8_bin NOT NULL,
-  `EndPoint` varchar(30) COLLATE utf8_bin NOT NULL,
-  `Date` date NOT NULL,
-  `Heure` time NOT NULL,
-  PRIMARY KEY (`IDCourse`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `courseshoraires`
---
-
-DROP TABLE IF EXISTS `courseshoraires`;
-CREATE TABLE IF NOT EXISTS `courseshoraires` (
-  `FKHoraire` int(11) NOT NULL,
-  `FKCourse` int(11) NOT NULL,
-  KEY `FKCourse` (`FKCourse`),
-  KEY `FKHoraire` (`FKHoraire`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `horaires`
---
-
-DROP TABLE IF EXISTS `horaires`;
-CREATE TABLE IF NOT EXISTS `horaires` (
-  `IDHoraire` int(11) NOT NULL AUTO_INCREMENT,
-  `TrancheHoraire` time NOT NULL,
-  PRIMARY KEY (`IDHoraire`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
--- --------------------------------------------------------
-
---
 -- Structure de la table `profs`
 --
 
@@ -93,20 +50,6 @@ INSERT INTO `profs` (`IDProf`, `Acronyme`, `Nom`, `Prenom`, `Password`, `Email`,
 (2, 'PBA', 'Benzonana', 'Pascal', '81dc9bdb52d04dc20036dbd8313ed055', 'pascal.benzonana@test.ch', 7, 'Yverdon'),
 (3, 'FAO', 'Andolfatto', 'Frederique', '81dc9bdb52d04dc20036dbd8313ed055', 'frederique.andolfatto@test.ch', 5, 'Yverdon'),
 (16, 'PAI', 'Altieri', 'Patrick', '81dc9bdb52d04dc20036dbd8313ed055', 'patrick.altieri@test.ch', 5, 'Lausanne');
-
--- --------------------------------------------------------
-
---
--- Structure de la table `profscourses`
---
-
-DROP TABLE IF EXISTS `profscourses`;
-CREATE TABLE IF NOT EXISTS `profscourses` (
-  `FKProf` int(11) NOT NULL,
-  `FKCourse` int(11) NOT NULL,
-  KEY `FKProf` (`FKProf`),
-  KEY `FKCourse` (`FKCourse`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
