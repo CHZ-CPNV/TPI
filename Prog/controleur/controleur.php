@@ -27,18 +27,17 @@ function vueInscription() {
 
 function vueHoraire() {
 	// Current user est l'utilisateur connecté
-	$CurrentUserHD = 0;
-	$CurrentUserHF = 0;
-	$CurrentUserHeureDepart = 0;
+	$CurrentUserHD = 0; // Heures du début des cours
+	$CurrentUserHF = 0; // Heures de fin brut des cours (sans la durée pris en compte)
+	$CurrentUserHeureDepart = 0; // Heures de fin des cours
 
-	// Other user est le reste des enseignants de la BD
-	$OtherUserHD = 0;
-	$OtherUserHF = 0;
-	$OtherUserHeureDepart = 0;
+	// Other user est le reste des enseignants du CSV
+	$OtherUserHD = 0; // Heures du début des cours
+	$OtherUserHF = 0; // Heures de fin brut des cours (sans la durée pris en compte)
+	$OtherUserHeureDepart = 0; // Heures de fin des cours
 
-	$UserFound;
-	$TodayDate = date("N");
-	$JourSemaine = array(
+	$TodayDate = date("N"); // Retourne le jour de la semaine actuelle sous forme numérique
+	$JourSemaine = array( // Tableau des jour de la semaine
 		"1" => "lundi",
 		"2" => "mardi",
 		"3" => "mercredi",
@@ -47,12 +46,17 @@ function vueHoraire() {
 		"6" => "samedi",
 		"7" => "dimanche",
 	);
+
+	// Récupère la ville de départ de l'utilisateur connecté
+	$LogUserVille = getVillePorf();
+	$res = $LogUserVille->fetch();
+	$ville = $res['VilleDepart'];
+
 	ini_set('auto_detect_line_endings', TRUE);
 	if (($file = fopen("C:\Users\Camille.HEINTZ\Documents\TPI\Prog\data\data.csv", "r")) !== FALSE) {
 		fgetcsv($file);
 		while (($dataCSV = fgetcsv($file, 0, ";")) !== FALSE) {
 			$csv = $dataCSV;
-			//var_dump($csv);
 
 			//Check les horaires par rapport au jour de l'utilisateur connecté
 			if($csv[3] == $_SESSION['CurrentUser'] && $csv[5] == $JourSemaine[$TodayDate]) {
@@ -63,10 +67,6 @@ function vueHoraire() {
 					$Duree = $csv[1];
 					$CurrentUserHeureDepart = $CurrentUserHF + $Duree;
 				}
-				//echo $_SESSION['CurrentUser'];
-				//var_dump($CurrentUserHD. "HD");
-				//var_dump($CurrentUserHF. "HF");
-				//var_dump($CurrentUserHeureDepart."h00</br>");
 			}
 
 			//Check les horaires des autre enseignants
@@ -79,42 +79,23 @@ function vueHoraire() {
 					$Duree = $csv[1];
 					$OtherUserHeureDepart = $OtherUserHF + $Duree;
 				}
-				var_dump($UserFound);
-				//var_dump($OtherUserHD. " HD");
-				//var_dump($OtherUserHF. " HF");
-				//var_dump($OtherUserHeureDepart."h00");
 				echo "</br>";
 			}
-			// if($csv[3] == $_SESSION['CurrentUser'] && $csv[5] == "mardi") {
-			// 	if(empty($CurrentUserHD)){ // essayer "if($CurrentUserHD == 0){} conseil de armand"
-			// 		$CurrentUserHD = $csv[6];
-			// 	} else {
-			// 		$CurrentUserHF = $csv[6];
-			// 	}
-			// 	//var_dump($CurrentUserHF);
-			// 	//var_dump($CurrentUserHD);
-			// }
-			// if($csv[3] == $_SESSION['CurrentUser'] && $csv[5] == "mercredi") {
-			// 	$CurrentUserH = $csv[6];
-			// }
-			// if($csv[3] == $_SESSION['CurrentUser'] && $csv[5] == $JourSemaine[$TodayDate]) {
-			// 	$CurrentUserH = $csv[6];
-			// }
-			// if($csv[3] == $_SESSION['CurrentUser'] && $csv[5] == "vendredi") {
-			// 	$CurrentUserH = $csv[6];
-			// }
-
-			if($csv[6] == $CurrentUserHD && $csv[5] == $JourSemaine[$TodayDate] && $csv[3] != $_SESSION['CurrentUser']) {
-				if($UserFound == $csv[3]){
-					//$UserFound = $csv[3];
-					//$UserHoraire = $csv[6];
-					//$UserHoraireFin = $csv[1] + $csv[6];
-					$ArrayUser = array(
-						"User" => $UserFound, // Les noms des utilisateurs potentiel pour un covoiturage
-						"UserHD" => $OtherUserHD, // Les horaires des utilisateurs potentiel pour un covoiturage
-						"UserHF" => $OtherUserHeureDepart, // Les horaires de fin de journée des utilisateurs potentiel pour un covoiturage
-					);
-					var_dump($ArrayUser);
+			// Récupère les profs venant de la même ville que celui connecté
+			$OtherUserVille = getProf($ville);
+			foreach ($OtherUserVille as $value) {
+				$OtherUserVille = $value;
+				if($csv[6] == $CurrentUserHD && $csv[5] == $JourSemaine[$TodayDate] && $csv[3] != $_SESSION['CurrentUser']) {
+					echo $OtherUserVille['Nom'];
+					if($OtherUserVille['Nom'] == $csv[3]){
+						$ArrayUser = array(
+							"Acronyme" => $OtherUserVille['Acronyme'], // Les acronymes des utilisateurs potentiel pour un covoiturage
+							"UserN" => $OtherUserVille['Prenom'], // Les noms des utilisateurs potentiel pour un covoiturage
+							"UserN" => $OtherUserVille['Nom'], // Les noms des utilisateurs potentiel pour un covoiturage
+							"UserHD" => $OtherUserHD, // Les horaires des utilisateurs potentiel pour un covoiturage
+							"UserHF" => $OtherUserHeureDepart, // Les horaires de fin de journée des utilisateurs potentiel pour un covoiturage
+						);
+					}
 				}
 			}
 		}

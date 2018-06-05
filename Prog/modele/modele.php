@@ -27,10 +27,21 @@ function inscriptionDone($post){
 	return $resultats;
 }
 
-function getProf(){
+function getVillePorf(){
+	$connexion = getBd();
+	//Récupère la ville de l'utilisateur connecté
+	$currentUserVille = "SELECT VilleDepart FROM profs WHERE Nom ='".$_SESSION['CurrentUser']."';";
+	$StartPoint = $connexion->query($currentUserVille);
+
+	return $StartPoint;
+}
+
+function getProf($ville){
 		$connexion = getBd();
-		$requete = "SELECT Acronyme, Nom, Prenom, Email, Password, NbPlace, VilleDepart FROM profs";
+		//Cherche les enseignants de la même ville
+		$requete = "SELECT Acronyme, Nom, Prenom, VilleDepart FROM profs WHERE VilleDepart = '".$ville."' AND Nom <> '".$_SESSION['CurrentUser']."'";
 		$resultats = $connexion->query($requete);
+		
 		return $resultats;
 }
 
